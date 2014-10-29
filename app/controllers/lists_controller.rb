@@ -19,6 +19,20 @@ class ListsController < ApplicationController
     end
   end
 
+  def edit
+    @list = List.find(params[:id])
+  end
+
+  def update
+    @list = List.find(params[:id])
+    if @list.update(list_params)
+      flash[:notice] = "Your list has been renamed."
+      redirect_to lists_path
+    else
+      flash[:alert] = "We encountered a problem. Please try again."
+      render :edit
+    end
+  end
 
   private
 

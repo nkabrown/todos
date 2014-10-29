@@ -39,6 +39,19 @@ RSpec.describe ListsController, :type => :controller do
   end
 
   describe "GET new" do
+    it "should respond successfully with an HTTP 200 code" do
+      get :new
+
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
+    end
+
+    it "should render the new template" do
+      get :new
+
+      expect(response).to render_template("new")
+    end
+
     it "assigns a new list as @list" do
       get :new, {}, valid_attributes
 
@@ -79,6 +92,63 @@ RSpec.describe ListsController, :type => :controller do
         post :create, {list: invalid_attributes}, valid_session
 
         expect(response).to render_template("new")
+      end
+    end
+  end
+
+  describe "GET edit" do
+    it "assigns the requested list to @list" do
+      list = List.create! valid_attributes
+      get :edit, {id: list.to_param}, valid_session
+
+      expect(assigns(:list)).to eq(list)
+    end
+  end
+
+  describe "PUT update" do
+    let(:new_attributes) {
+      @new_attributes = {
+        title: "Projects"
+      }
+    }
+
+    context "with valid params" do
+      it "updates the requested list" do
+        list = List.create! valid_attributes
+        put :update, {id: list.to_param, list: new_attributes}, valid_session
+        list.reload
+
+        expect(list.title).to eq("Projects")
+      end
+
+      it "assigns the list as @list" do
+        list = List.create! valid_attributes
+        put :update, {id: list.to_param, list: new_attributes}, valid_session
+
+        expect(assigns(:list)).to eq(list)
+      end
+
+      it "redirects to the lists page" do
+        list = List.create! valid_attributes
+        put :update, {id: list.to_param, list: new_attributes}, valid_session
+
+        expect(response).to redirect_to(lists_path)
+      end
+    end
+
+    context "with invalid params" do
+      it "assigns the list as @list" do
+        list = List.create! valid_attributes
+        put :update, {id: list.to_param, list: invalid_attributes}, valid_session
+
+        expect(assigns(:list)).to eq(list)
+      end
+
+      it "re-renders the edit view" do
+        list = List.create! valid_attributes
+        put :update, {id: list.to_param, list: invalid_attributes}, valid_session
+
+        expect(response).to render_template("edit")
       end
     end
   end
