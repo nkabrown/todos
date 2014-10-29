@@ -1,1 +1,9 @@
 <h1>List Index</h1>
+
+<%= link_to "Create a new list", new_list_path %>
+
+<% @lists.each do |list| %>
+  <ul>
+    <li><%= list.title %></li>
+  </ul>
+<% end %>

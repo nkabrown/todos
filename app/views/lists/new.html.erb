@@ -1,1 +1,9 @@
 <h1>List New</h1>
+
+<%= form_for @list do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.submit "Create list" %>
+<% end %>
+
+<%= link_to "Your lists", lists_path %>
