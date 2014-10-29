@@ -38,6 +38,30 @@ RSpec.describe ListsController, :type => :controller do
     end
   end
 
+  describe "GET show" do
+    it "should respond successfully with an HTTP 200 code" do
+      list = List.create! valid_attributes
+      get :show, {id: list.to_param}, valid_session
+
+      expect(response).to be_success
+      expect(response).to have_http_status(200)
+    end
+
+    it "should render the show template" do
+      list = List.create! valid_attributes
+      get :show, {id: list.to_param}, valid_session
+
+      expect(response).to render_template("show")
+    end
+
+    it "assigns the list to @list" do
+      list = List.create! valid_attributes
+      get :show, {id: list.to_param}, valid_session
+
+      expect(assigns(:list)).to eq(list)
+    end
+  end
+
   describe "GET new" do
     it "should respond successfully with an HTTP 200 code" do
       get :new
@@ -151,5 +175,6 @@ RSpec.describe ListsController, :type => :controller do
         expect(response).to render_template("edit")
       end
     end
+
   end
 end
