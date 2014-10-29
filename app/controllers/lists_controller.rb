@@ -38,6 +38,14 @@ class ListsController < ApplicationController
     end
   end
 
+  def destroy
+    @list = List.find(params[:id])
+    if @list.destroy
+      flash[:notice] = "List successfully deleted"
+      redirect_to lists_path
+    end
+  end
+
   private
 
     def list_params

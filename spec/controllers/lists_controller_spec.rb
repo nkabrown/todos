@@ -175,6 +175,21 @@ RSpec.describe ListsController, :type => :controller do
         expect(response).to render_template("edit")
       end
     end
+  end
 
+  describe "DELETE destroy" do
+    it "destroys the requested list" do
+      list = List.create! valid_attributes
+      expect {
+        delete :destroy, {id: list.to_param}, valid_session
+      }.to change(List, :count).by(-1)
+    end
+
+    it "redirects to the lists page" do
+      list = List.create! valid_attributes
+      delete :destroy, {id: list.to_param}, valid_session
+
+      expect(response).to redirect_to(lists_path)
+    end
   end
 end
