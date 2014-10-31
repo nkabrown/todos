@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TodosController, :type => :controller do
 
-  let(:list) { FactoryGirl.build(:list) }
+  let(:list) { FactoryGirl.create(:list) }
   let(:todo) { FactoryGirl.build(:todo) }
   let(:invalid_todo) { FactoryGirl.build(:invalid_todo) }
 
@@ -10,7 +10,6 @@ RSpec.describe TodosController, :type => :controller do
 
   describe "GET new" do
     it "should respond successfully with an HTTP 200 code" do
-      list = create(:list)
       get :new, {list_id: list.id}, valid_session
 
       expect(response).to be_success

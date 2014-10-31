@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ListsController, :type => :controller do
 
-  let(:list) { FactoryGirl.build(:list) }
+  let(:list) { FactoryGirl.create(:list) }
 
   let(:valid_session) { {list_id: 1} }
 
@@ -21,7 +21,6 @@ RSpec.describe ListsController, :type => :controller do
     end
 
     it "assigns all lists to @lists" do
-      list = create(:list)
       get :index, {}, valid_session
 
       expect(assigns(:lists)).to eq([list])
@@ -30,7 +29,6 @@ RSpec.describe ListsController, :type => :controller do
 
   describe "GET show" do
     it "should respond successfully with an HTTP 200 code" do
-      list = create(:list)
       get :show, {id: list.to_param}, valid_session
 
       expect(response).to be_success
@@ -38,7 +36,6 @@ RSpec.describe ListsController, :type => :controller do
     end
 
     it "should render the show template" do
-      list = create(:list)
       get :show, {id: list.to_param}, valid_session
 
       expect(response).to render_template("show")
