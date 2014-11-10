@@ -4,6 +4,6 @@
 
 <% @lists.each do |list| %>
   <ul>
-    <li><%= list.title %></li>
+    <li><%= link_to list.title, list_path(list) %></li>
   </ul>
 <% end %>

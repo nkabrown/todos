@@ -18,7 +18,7 @@ class ListsController < ApplicationController
       flash[:notice] = "List created successfully"
       redirect_to lists_path
     else
-      flash[:aler] = "We encountered a problem. Please try again."
+      flash[:alert] = "We encountered a problem. Please try again."
       render :new
     end
   end

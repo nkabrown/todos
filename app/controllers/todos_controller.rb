@@ -4,8 +4,9 @@ class TodosController < ApplicationController
     @todo = Todo.new
   end
 
-  def create
-    @todo = Todo.new(todo_params)
+  def create 
+    @list = List.find(params[:list_id])
+    @todo = @list.todos.new(todo_params)
     if @todo.save
       flash[:notice] = "New todo successfully created."
       redirect_to list_path(:list_id)
@@ -15,9 +16,15 @@ class TodosController < ApplicationController
     end
   end
 
+  def destroy
+    @todo = Todo.find(params[:id])
+    @todo.destroy
+    redirect_to list_path(:list_id)
+  end
+
   private
 
     def todo_params
-      params.require(:todo).permit(:body, :list_id)
+      params.require(:todo).permit(:body)
     end
 end

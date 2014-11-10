@@ -2,4 +2,15 @@
 
 <h2><%= @list.title %></h2>
 
+<%= form_for ([@list, @list.todos.build]) do |f| %>
+  <%= f.label :body, "Todo" %>
+  <%= f.text_field :body %>
+  <%= f.submit %>
+<% end %>
+<% @list.todos.each do |todo| %>
+  <ul>
+    <li><%# todo.body %><%# link_to "DELETE", list_todo_path([@list.id][@list.todos.id]), method: :delete %></li>
+  </ul>
+<% end %>
+
 <p><%= link_to "Delete list", list_path(@list), method: :delete, data: { confirm: "Are you sure?" } %></p>
